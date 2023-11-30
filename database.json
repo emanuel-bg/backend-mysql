@@ -1,0 +1,10 @@
+{
+    "dev": {
+      "host": "localhost",
+      "user": { "ENV" : "root" },
+      "password" : { "ENV" : "admin" },
+      "database": "projectx",
+      "driver": "mysql",
+      "multipleStatements": true
+    },"sql-file":true
+  }
