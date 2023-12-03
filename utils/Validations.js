@@ -78,3 +78,30 @@ export function NoNull(w) {
   }
   return true;
 }
+function validateJustNumbers(n) {
+  for (let i = 0; i < n.length; i++) {
+     var character = n[i];
+     if (isNaN(parseInt(character))) {
+        return false;
+     }
+  }
+  return true;
+}
+
+
+export function validateMeasureId(Id) {
+  return validateJustNumbers(Id) && NoSpacesAndNull(Id);
+}
+export function validateMeasureAmount(amount) {
+  return validateJustNumbers(amount) && NoSpacesAndNull(amount);
+}
+export function validateMeasureDate(date) {
+  return NoSpacesAndNull(date);
+}
+export function validateMeasureMeasuredby(measuredby) {
+  return validateLetters(measuredby) && NoNull(measuredby);
+}
+
+export function validateMeasureUserId(userId) {
+  return validateJustNumbers(userId);
+}

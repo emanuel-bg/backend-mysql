@@ -1,4 +1,4 @@
-import Measurement from "./measurementModel.js";
+
 
 async function get_one(req, res) {
   const Id = req.params.id;

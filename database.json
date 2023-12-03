@@ -1,10 +1,11 @@
 {
-    "dev": {
-      "host": "localhost",
-      "user": { "ENV" : "root" },
-      "password" : { "ENV" : "admin" },
-      "database": "projectx",
-      "driver": "mysql",
-      "multipleStatements": true
-    },"sql-file":true
-  }
+  "dev": {
+    "host": "localhost",
+    "user": "root",
+    "password": "admin",
+    "database": "projectx",
+    "driver": "mysql",
+    "multipleStatements": true
+  },
+  "sql-file": true
+}

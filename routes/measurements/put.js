@@ -1,4 +1,4 @@
-import Measurement from "./measurementModel.js";
+
 
 export default async function put(req, res) {
   const updatedId = req.params.id;

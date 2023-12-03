@@ -1,19 +1,17 @@
-import Measurement from "./measurementModel.js";
-
+import db from "../../mysql/db.js";
 export default async function remove(req, res) {
-  const deletedId = req.params.id;
-
-  const message = "Succesful Delete";
-  const errors = {};
-  errors.message = "";
-  try {
-    const result = await Measurement.deleteOne(
-      { id: deletedId }
-    );
-  } catch (e) {
-    data = InsertedData;
-    message = "Error creating de object";
-    errors = e;
+  const id = req.params.id;
+  debugger;
+  if (isNaN(id)) {
+    return res.status(400).json({ message: "Invalid Id" });
   }
-  return res.status(200).json({ message, deletedId, errors });
+  try {
+    const sqlDelete = `delete from Measurements where id='${id}';`;
+    const deleted = await db.query(sqlDelete);
+    if (deleted.serverStatus == 2) {
+      return res.status(200).json({ message: "User deleted"});
+    }
+  } catch (e) {
+    console.log(e);
+  }
 }
