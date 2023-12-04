@@ -2,7 +2,6 @@ import db from "../../mysql/db.js";
 import {
   validateMeasureAmount,
   validateMeasureDate,
-  validateMeasureUserId,
   validateMeasureMeasuredby,
 } from "../../utils/Validations.js";
 
@@ -24,10 +23,13 @@ export default async function post(req, res) {
       measurmentData.image,
     ];
     const newMeasurement = await db.query(newMeasureSQL, values);
-    debugger
+    debugger;
     return res
       .status(201)
-      .json({ message: "User succesfully created", id:newMeasurement.insertId });
+      .json({
+        message: "User succesfully created",
+        id: newMeasurement.insertId,
+      });
   } catch (e) {
     console.log(e);
   }

@@ -8,8 +8,9 @@ export default async function remove(req, res) {
   try {
     const sqlDelete = `delete from Measurements where id='${id}';`;
     const deleted = await db.query(sqlDelete);
+    console.log(deleted);
     if (deleted.serverStatus == 2) {
-      return res.status(200).json({ message: "User deleted"});
+      return res.status(200).json({ message: "User deleted" });
     }
   } catch (e) {
     console.log(e);

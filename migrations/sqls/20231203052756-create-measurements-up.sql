@@ -1,7 +1,7 @@
 /* Replace with your SQL commands */
 
 CREATE TABLE IF NOT EXISTS Measurements (
-        id INT AUTO_INCREMENT PRIMARY KEY,
+        _id INT AUTO_INCREMENT PRIMARY KEY,
         amount VARCHAR(255),
         date DATE,
         measuredby VARCHAR(255),
