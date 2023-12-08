@@ -1,37 +1,55 @@
-
+import db from "../../mysql/db.js";
+import {
+  validateMeasureMeasuredby,
+} from "../../utils/Validations.js";
 
 export default async function put(req, res) {
-  const updatedId = req.params.id;
-  let updatedData = req.body;
-  let message = "Succesful Update";
-  let errors = {};
+  const measurementId = req.params.id;
+  let measurmentData = req.body;
 
-  errors.message = "";
- 
-  const exist= await Measurement.countDocuments({ id: updatedId })
-  if (!exist) {
-    updatedData = req.body;
-    message = "Object does not exist";
-    errors = {};
-    return res.status(400).json({ message, data:updatedData, errors });
+  const errors = validate(measurmentData);
+  if (Object.keys(errors).length > 0) {
+    return res.status(400).json({ errors });
   }
   try {
-    await Measurement.updateOne(
-      { id: updatedId },
-      {
-        $set: {
-          amount: updatedData.amount,
-          date: updatedData.date,
-          measuredby: updatedData.measuredby,
-          userId: updatedData.userId,
-          imageName: updatedData.imageName,
-        },
-      }
-    );
+    const newMeasureSQL =
+      "UPDATE Measurements SET amount=?, date=?, measuredby=?, userid=?, imageName=? WHERE id=?";
+    const values = [
+      measurmentData.amount,
+      measurmentData.date,
+      measurmentData.measuredby,
+      measurmentData.userId,
+      measurmentData.image,
+      measurementId,
+    ];
+    const newMeasurementInsert = await db.query(newMeasureSQL, values);
+    const sqlMeasurementsData = `select * from Measurements where id=${measurementId}`;
+    const data = await db.query(sqlMeasurementsData);
+    const measure = data[0];
+    return res.status(200).json({
+      data: measure,
+    });
   } catch (e) {
-    updatedData = req.body;
-    message = "Error updating de object";
-    errors = e;
+    console.log(e);
   }
-  res.status(200).json({ message, updatedData, errors });
+}
+
+function validate(measureData) {
+  let errors = {};
+  if (isNaN(measureData.amount)) {
+    errors.amount = ["Invalid measure amount"];
+  }
+  if (isNaN(measureData.date)) {
+    errors.date = ["Invalid measure date"];
+  }
+  if (!validateMeasureMeasuredby(measureData.measuredby)) {
+    errors.measuredby = ["Invalid name for Measured By"];
+    //Only letters
+  }
+  if (isNaN(measureData.userId)) {
+    errors.userId = ["Invalid User ID"];
+    //Only numbers and letters
+  }
+
+  return errors;
 }

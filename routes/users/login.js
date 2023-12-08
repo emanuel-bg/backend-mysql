@@ -3,7 +3,7 @@ import db from "../../mysql/db.js";
 
 export default async function Login(req, res) {
   try {
-    debugger;
+  
     const userData = req.body;
     const userSQL = `select * from Users as user where email='${userData.email}';`;
     const userDB = await db.query(userSQL);

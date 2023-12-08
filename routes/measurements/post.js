@@ -22,14 +22,13 @@ export default async function post(req, res) {
       measurmentData.userId,
       measurmentData.image,
     ];
-    const newMeasurement = await db.query(newMeasureSQL, values);
-    debugger;
-    return res
-      .status(201)
-      .json({
-        message: "User succesfully created",
-        id: newMeasurement.insertId,
-      });
+    const newMeasurementInsert = await db.query(newMeasureSQL, values);
+    const sqlMeasurementsData = `select * from Measurements where id=${newMeasurementInsert.insertId}`;
+    const data = await db.query(sqlMeasurementsData);
+    const measure = data[0];
+    return res.status(201).json({
+      data: measure,
+    });
   } catch (e) {
     console.log(e);
   }
@@ -37,11 +36,10 @@ export default async function post(req, res) {
 
 function validate(measureData) {
   let errors = {};
-  debugger;
   if (isNaN(measureData.amount)) {
     errors.amount = ["Invalid measure amount"];
   }
-  if (!validateMeasureDate(measureData.date)) {
+  if (!isNaN(measureData.date)) {
     errors.date = ["Invalid measure date"];
   }
   if (!validateMeasureMeasuredby(measureData.measuredby)) {
