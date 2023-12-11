@@ -39,7 +39,7 @@ function validate(measureData) {
   if (isNaN(measureData.amount)) {
     errors.amount = ["Invalid measure amount"];
   }
-  if (!isNaN(measureData.date)) {
+  if (!validateMeasureDate(measureData.date)) {
     errors.date = ["Invalid measure date"];
   }
   if (!validateMeasureMeasuredby(measureData.measuredby)) {

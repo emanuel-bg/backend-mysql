@@ -3,17 +3,16 @@ import db from "../../mysql/db.js";
 
 export default async function Login(req, res) {
   try {
-  
     const userData = req.body;
     const userSQL = `select * from Users as user where email='${userData.email}';`;
     const userDB = await db.query(userSQL);
-    const user=userDB[0]
+    const user = userDB[0];
     if (userDB.length == 0) {
-user.password=""
+      user.password = "";
     }
-  
+
     const validPassord = await bcrypt.compare(userData.password, user.password);
-    if (userDB.length==0 || !validPassord) {
+    if (userDB.length == 0 || !validPassord) {
       let errors = {};
       errors.email = ["Invalid user or password", "Email required"];
       errors.password = ["Invalid user or password"];

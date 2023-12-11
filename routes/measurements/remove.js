@@ -6,7 +6,7 @@ export default async function remove(req, res) {
     return res.status(400).json({ message: "Invalid Id" });
   }
   try {
-    const sqlDelete = `delete from Measurements where _id='${id}';`;
+    const sqlDelete = `delete from Measurements where id='${id}';`;
     const deleted = await db.query(sqlDelete);
     console.log(deleted);
     if (deleted.serverStatus == 2) {

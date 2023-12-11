@@ -1,7 +1,5 @@
 import db from "../../mysql/db.js";
-import {
-  validateMeasureMeasuredby,
-} from "../../utils/Validations.js";
+import { validateMeasureMeasuredby } from "../../utils/Validations.js";
 
 export default async function put(req, res) {
   const measurementId = req.params.id;
@@ -19,7 +17,7 @@ export default async function put(req, res) {
       measurmentData.date,
       measurmentData.measuredby,
       measurmentData.userId,
-      measurmentData.image,
+      measurmentData.imageName,
       measurementId,
     ];
     const newMeasurementInsert = await db.query(newMeasureSQL, values);
@@ -38,9 +36,6 @@ function validate(measureData) {
   let errors = {};
   if (isNaN(measureData.amount)) {
     errors.amount = ["Invalid measure amount"];
-  }
-  if (isNaN(measureData.date)) {
-    errors.date = ["Invalid measure date"];
   }
   if (!validateMeasureMeasuredby(measureData.measuredby)) {
     errors.measuredby = ["Invalid name for Measured By"];
