@@ -5,7 +5,7 @@ import remove from "./remove.js";
 import put from "./put.js";
 import uploadImage from "./uploadImage.js";
 import get_one from "./get_one.js";
-
+import search from "./search.js";
 var router = express.Router();
 
 router.get("/", list);
@@ -15,6 +15,7 @@ router.post("/", post);
 router.put("/:id", put);
 router.delete("/:id", remove);
 router.post("/uploadImage", uploadImage);
+router.post("/search", search);
 
 export default router;
 

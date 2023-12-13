@@ -14,13 +14,15 @@ export default async function post(req, res) {
   }
   try {
     const newMeasureSQL =
-      "INSERT INTO projectx.Measurements (amount, date, measuredby, userId, imageName) VALUES (?, ?, ?, ?, ?);";
+      "INSERT INTO projectx.Measurements (amount, date, measuredby, userId, imageName,created_at,updated_at) VALUES (?, ?, ?, ?, ?,?,?);";
     const values = [
       measurmentData.amount,
       measurmentData.date,
       measurmentData.measuredby,
       measurmentData.userId,
       measurmentData.image,
+      measurmentData.created_at,
+      measurmentData.updated_at
     ];
     const newMeasurementInsert = await db.query(newMeasureSQL, values);
     const sqlMeasurementsData = `select * from Measurements where id=${newMeasurementInsert.insertId}`;

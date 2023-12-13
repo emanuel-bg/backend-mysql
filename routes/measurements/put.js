@@ -11,13 +11,14 @@ export default async function put(req, res) {
   }
   try {
     const newMeasureSQL =
-      "UPDATE Measurements SET amount=?, date=?, measuredby=?, userid=?, imageName=? WHERE id=?";
+      "UPDATE Measurements SET amount=?, date=?, measuredby=?, userid=?, imageName=?, updated_at=? WHERE id=?";
     const values = [
       measurmentData.amount,
       measurmentData.date,
       measurmentData.measuredby,
       measurmentData.userId,
       measurmentData.imageName,
+      measurmentData.updated_at,
       measurementId,
     ];
     const newMeasurementInsert = await db.query(newMeasureSQL, values);
