@@ -1,5 +1,7 @@
 import bcrypt from "bcrypt";
 import db from "../../mysql/db.js";
+import getJWT from "../../utils/getJWT.js"
+import SQLcreateSession from "./SQLcreateSession.js";
 
 export default async function Login(req, res) {
   try {
@@ -18,6 +20,15 @@ export default async function Login(req, res) {
       errors.password = ["Invalid user or password"];
       return res.status(422).json({ errors });
     }
+    user.token = getJWT(user);
+    const values = [
+      user.id,
+      Date.now(),
+      Date.now(),
+      user.token,
+    ];
+   await db.query(SQLcreateSession(),values);
+
     res.status(200).json({ data: user });
   } catch (error) {
     console.log(error);

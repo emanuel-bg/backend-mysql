@@ -1,4 +1,5 @@
 import db from "../../mysql/db.js";
+
 async function list(_req, res) {
   try {
     const sqlusers = `select * from Users;`;

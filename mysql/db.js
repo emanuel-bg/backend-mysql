@@ -8,9 +8,6 @@ async function query(sql, params) {
   return results;
 }
 
-async function Public(id) {
-  
-}
 
 export default {
   query,

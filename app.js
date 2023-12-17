@@ -6,6 +6,7 @@ import cors from "cors";
 import fileUpload from "express-fileupload";
 import path from "path";
 import { fileURLToPath } from "url";
+import verifyToken from "./middlewares/verifyToken.js";
 
 const app = express();
 
@@ -25,7 +26,7 @@ app
   .use(cors())
   .use(express.json())
   .use("/", indexRouter)
-  .use("/measurements", mesurementsRouter)
+  .use("/measurements", verifyToken,mesurementsRouter)
   .use("/users", usersRouter)
   .use("/measurements/images", express.static(measurementsimages))
   .use("/users/images", express.static(usersimages))
