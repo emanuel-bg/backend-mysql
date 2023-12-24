@@ -1,9 +1,11 @@
 import db from "../../mysql/db.js";
+import sqlList from "./sqlList.js"
+import sqlListCount from "./sqlListCount.js";
 
 async function list(_req, res) {
-  const sqlMeasurements = `select CAST(id AS CHAR) as id,amount,date,measuredby,userid,imageName,created_at,updated_at from Measurements`;
+  const sqlMeasurements = sqlList();
   const data = await db.query(sqlMeasurements);
-  const sqlcount = `select count(*) as count FROM Measurements;`;
+  const sqlcount = sqlListCount();
   const count = await db.query(sqlcount);
   res.status(200).json({ count: count[0].count, data });
 }

@@ -7,6 +7,6 @@ WHERE
     amount > $ 
 `
 
-export default function (searchParam){
+export default function sqlByAmountCount(searchParam){
     return sql+searchParam
 }
