@@ -14,6 +14,6 @@ WHERE
     date > 
 `
 
-export default function (searchParam){
+export default function sqlByDate(searchParam){
     return sql+searchParam
 }

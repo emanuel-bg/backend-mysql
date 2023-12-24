@@ -8,11 +8,14 @@ import {
 export default async function post(req, res) {
   let measurmentData = req.body;
 
+  measurmentData.userId=res.locals?.currentUser?.id
+  measurmentData.measuredby=res.locals?.currentUser?.username
   const errors = validate(measurmentData);
   if (Object.keys(errors).length > 0) {
     return res.status(400).json({ errors });
   }
   try {
+   
     const newMeasureSQL =
       "INSERT INTO projectx.Measurements (amount, date, measuredby, userId, imageName,created_at,updated_at) VALUES (?, ?, ?, ?, ?,?,?);";
     const values = [
@@ -41,7 +44,7 @@ function validate(measureData) {
   if (isNaN(measureData.amount)) {
     errors.amount = ["Invalid measure amount"];
   }
-  if (!validateMeasureDate(measureData.date)) {
+  if (isNaN(measureData.date)) {
     errors.date = ["Invalid measure date"];
   }
   if (!validateMeasureMeasuredby(measureData.measuredby)) {

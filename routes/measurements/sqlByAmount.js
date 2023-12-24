@@ -12,6 +12,6 @@ Measurements
 WHERE
 amount > `
 
-export default function (searchParam){
+export default function sqlByAmount(searchParam){
     return sql+searchParam
 }

@@ -7,6 +7,7 @@ import fileUpload from "express-fileupload";
 import path from "path";
 import { fileURLToPath } from "url";
 import verifyToken from "./middlewares/verifyToken.js";
+import currentUser from "./middlewares/currentUser.js";
 
 const app = express();
 
@@ -26,7 +27,7 @@ app
   .use(cors())
   .use(express.json())
   .use("/", indexRouter)
-  .use("/measurements", verifyToken,mesurementsRouter)
+  .use("/measurements", verifyToken,currentUser, mesurementsRouter)
   .use("/users", usersRouter)
   .use("/measurements/images", express.static(measurementsimages))
   .use("/users/images", express.static(usersimages))
@@ -41,6 +42,7 @@ app
 
     // render the error page
     res.status(err.status || 500);
+    res.json({message:err.message})
     res.render("error");
   });
 export default app;

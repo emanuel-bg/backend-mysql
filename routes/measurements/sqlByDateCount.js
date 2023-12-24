@@ -6,6 +6,6 @@ FROM
 WHERE
     date >`
 
-export default function (searchParam){
+export default function sqlByDateCount(searchParam){
     return sql+searchParam
 }

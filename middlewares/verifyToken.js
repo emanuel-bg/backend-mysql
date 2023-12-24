@@ -15,7 +15,7 @@ export default function verifyToken(req, res, next) {
       return next({ message: "Invalid token", status: 401 });
     }
 
-    res.locals.token = token;
+   
 
     jwt.verify(token, process.env.SECRET_KEY, (err) => {
       if (err) {
@@ -26,6 +26,7 @@ export default function verifyToken(req, res, next) {
       }
     });
 
+    res.locals.token = token;
     next();
   } catch (error) {
     next(error);

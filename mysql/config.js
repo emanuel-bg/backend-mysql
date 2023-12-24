@@ -1,9 +1,9 @@
 const config = {
   db: {
-    host: "127.0.0.1",
-    user: "root",
-    password: "admin",
-    database: "projectx",
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DATABASE,
     connectTimeout: 60000,
   },
   listPerPage: 10,
